@@ -14,6 +14,7 @@ const App = () => {
 
   const [selected, setSelected] = useState(0);
   const [score, setScore] = useState([0, 0, 0, 0, 0, 0, 0, 0]);
+  const [highest, setHighest] = useState(0);
 
   const nextAnecdote = () => {
     let rand = Math.floor(Math.random() * 7);
@@ -27,15 +28,22 @@ const App = () => {
   const voteAnecdote = () => {
     let newScore = [...score];
     newScore[selected]++;
+
+    if (newScore[selected] > newScore[highest]) setHighest(selected);
     setScore(newScore);
   };
 
   return (
     <div>
+      <h1>Anecdotes</h1>
       <p>{anecdotes[selected]}</p>
       <p>has {score[selected]} votes</p>
       <button onClick={voteAnecdote}>Vote</button>
       <button onClick={nextAnecdote}>Next</button>
+
+      <h1>Anecdote with highest votes</h1>
+      <p>{anecdotes[highest]}</p>
+      <p>has {score[highest]} votes</p>
     </div>
   );
 };
