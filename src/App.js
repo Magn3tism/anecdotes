@@ -13,8 +13,9 @@ const App = () => {
   ];
 
   const [selected, setSelected] = useState(0);
+  const [score, setScore] = useState([0, 0, 0, 0, 0, 0, 0, 0]);
 
-  const handleClick = () => {
+  const nextAnecdote = () => {
     let rand = Math.floor(Math.random() * 7);
     while (1) {
       if (rand !== selected) break;
@@ -23,10 +24,18 @@ const App = () => {
     setSelected(rand);
   };
 
+  const voteAnecdote = () => {
+    let newScore = [...score];
+    newScore[selected]++;
+    setScore(newScore);
+  };
+
   return (
     <div>
       <p>{anecdotes[selected]}</p>
-      <button onClick={handleClick}>Next</button>
+      <p>has {score[selected]} votes</p>
+      <button onClick={voteAnecdote}>Vote</button>
+      <button onClick={nextAnecdote}>Next</button>
     </div>
   );
 };
